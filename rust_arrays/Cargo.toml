@@ -1,0 +1,15 @@
+[package]
+name = "rust_arrays"
+version = "0.1.0"
+authors = ["chrism"]
+edition = "2018"
+
+[build-dependencies]
+cbindgen = "0.6.0"
+
+[lib]
+name = "rust_arrays"
+crate-type = ["staticlib","cdylib"]
+
+[dependencies]
+libc = "0.2.66"
