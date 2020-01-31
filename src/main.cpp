@@ -36,60 +36,36 @@ int main() {
     Mat img = imread("lionfish.jpeg" , CV_LOAD_IMAGE_COLOR);
     //Mat img;
     //cv::resize(orig_img, img, cv::Size(), 0.33, 0.33);
-    uint32_t height = img.rows;
-    uint32_t width = img.cols;
-    //uint32_t row = 100, col = 10;
+    //write_small_image_rs();
+    //Mat img = imread("small_image.png",CV_LOAD_IMAGE_COLOR);
+    int height = img.rows;
+    int width = img.cols;
     cout << "(width,height) = (" << width << ", " << height << ")" << endl;
 
     // Remember, OpenCV grabs pixel in BGR format!
-    //cout << "img[0][0]" << to_string(img.at<Vec3b>(0,0)[2]) << endl;
-    uint32_t length = width * height;
-    uint32_t* arr = new uint32_t[3 * height * width * sizeof(uint8_t) + 1];
-    cout <<  sizeof(*arr) << endl;
-    uint32_t x, y;
+    int length = width * height;
+    uint8_t* arr = new uint8_t[3 * height * width];
+    int x, y;
     cout << " - Done with allocating memory" << endl;
-
 
     for (y = 0; y < height; y++){
         for (x = 0; x < width; x++) {
-            uint32_t pixel_num = width*y + x;
-            Vec3b bgr = img.at<Vec3b>(y,x); // These arguments need to go (y,x)
-            cout << "bgr pixel #" << pixel_num << " at (" << x << "," << y << ") : [" << to_string(bgr[0]) << "," << to_string(bgr[1]) << "," << to_string(bgr[2]) << "]" << endl;
-            *(arr + pixel_num) = bgr[0];
-            *((arr + pixel_num) + 1) = bgr[1];
-            *((arr + pixel_num) + 2) = bgr[2];
-
+            int pixel_num = (width*y + x)*3;
+            Vec3b bgr = img.at<Vec3b>(y,x); // NOTE: These arguments need to go (y,x)
+            // Remember, OpenCV grabs pixel in BGR format!
+            uint8_t b = bgr[0];
+            uint8_t g = bgr[1];
+            uint8_t r = bgr[2];
+            //cout << "bgr pixel #" << pixel_num << " at (" << x << "," << y << ") : [" << to_string(b) << "," << to_string(g) << "," << to_string(r) << "]" << endl;
+            *(arr + pixel_num) = b;
+            *(arr + pixel_num + 1) = g;
+            *(arr + pixel_num + 2) = r;
         }
     }
 
-
-
-
-    /*
-    for (x = 0; x < width; x++){
-        for (y = 0; y < height; y++) {
-            uint32_t pixel_num = width*y + x;
-            Vec3b bgr = img.at<Vec3b>(x,y);
-            cout << "bgr pixel #" << pixel_num << " at (" << x << "," << y << ") : [" << to_string(bgr[0]) << "," << to_string(bgr[1]) << "," << to_string(bgr[2]) << "]" << endl;
-            *(arr + pixel_num) = uint8_t (bgr[0]);
-            *((arr + pixel_num) + 1) = uint8_t (bgr[1]);
-            *((arr + pixel_num) + 2) = uint8_t (bgr[2]);
-        }
-    }
-    */
-
-    const uint32_t *ptr;
+    const uint8_t *ptr;
     ptr = arr;
-    get_image_vector(ptr,width,height);
-    /*
-    printf("The matrix elements are:\n");
-    for (i = 0; i < row; i++) {
-       for (j = 0; j < col; j++) {
-          printf("%d ", *(arr + i*col + j));
-       }
-       printf("\n");
-    }
-    */
+    get_image_vector_rs(ptr,width,height);
 
     delete arr; // NOTE: Always important to delete this pointer
     return 0;

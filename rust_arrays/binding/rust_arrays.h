@@ -7,20 +7,10 @@
 #include <cstdlib>
 #include <new>
 
-static const uint32_t TEN_U32 = 10;
-
-struct LargeArray {
-    uint32_t boxed_array[10000];
-};
-
-using Pixel = uint8_t[3];
-
 extern "C" {
 
-void get_image_vector(const uint32_t *ptr, uint32_t width, uint32_t height);
+void get_image_vector_rs(const uint8_t *ptr, uint32_t width, uint32_t height);
 
-void hello_from_rust();
-
-int32_t return_a_four();
+void write_small_image_rs();
 
 } // extern "C"
