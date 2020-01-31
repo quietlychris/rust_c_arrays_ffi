@@ -17,6 +17,7 @@ ADD_EXECUTABLE(${PROJ_NAME} ${SRC})
 
 include (ExternalProject)
 set_directory_properties (PROPERTIES EP_PREFIX ${PROJECT_BINARY_DIR}/RUST)
+set_property(GLOBAL PROPERTY CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
 
 ExternalProject_Add (
   ${RUST_DIR}

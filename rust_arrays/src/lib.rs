@@ -29,7 +29,8 @@ pub extern "C" fn return_a_four() -> i32 {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn get_raw_pointer(ptr: *const u8) {
-    let val = std::slice::from_raw_parts(ptr,1);
+pub unsafe extern "C" fn get_raw_pointer(ptr: *const u32,length: u32) {
+    let length: usize = length as usize;
+    let val = std::slice::from_raw_parts(ptr,length);
     println!("{:?}",val);
 }
