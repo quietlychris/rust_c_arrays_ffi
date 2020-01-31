@@ -19,6 +19,11 @@ include (ExternalProject)
 set_directory_properties (PROPERTIES EP_PREFIX ${PROJECT_BINARY_DIR}/RUST)
 set_property(GLOBAL PROPERTY CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
 
+# OpenCV Dependency
+find_package(OpenCV REQUIRED)
+include_directories ("${OpenCV_INCLUDE_DIRS}")
+
+
 ExternalProject_Add (
   ${RUST_DIR}
   DOWNLOAD_COMMAND ""
@@ -41,6 +46,7 @@ TARGET_LINK_LIBRARIES(
   optimized "${PROJECT_SOURCE_DIR}/${RUST_DIR}/target/release/lib${RUST_DIR}.a"
   dl
   pthread
+  ${OpenCV_LIBS}
 )
 
 set_target_properties(${RUST_DIR} PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)

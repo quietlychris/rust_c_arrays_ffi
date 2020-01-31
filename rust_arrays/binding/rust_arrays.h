@@ -17,7 +17,7 @@ using Pixel = uint8_t[3];
 
 extern "C" {
 
-void get_raw_pointer(const uint32_t *ptr, uint32_t length);
+void get_image_vector(const uint32_t *ptr, uint32_t width, uint32_t height);
 
 void hello_from_rust();
 
